@@ -10,8 +10,8 @@ TransitionScreen::TransitionScreen(QQuickView *viewer, QObject *parent) : QObjec
     m_viewer = viewer;
     mapSceneInfo =
     {
-        {Enums::SCENE::SCENE_A, {[](bool isPrepare){this->prepare_destroy_Scene_A(isPrepare);}, PATH_SCENE_A}},
-        {Enums::SCENE::SCENE_B, {[](bool isPrepare){this->prepare_destroy_Scene_B(isPrepare);}, PATH_SCENE_B}},
+        {Enums::SCENE::SCENE_A, {&TransitionScreen::prepare_destroy_Scene_A, PATH_SCENE_A}},
+        {Enums::SCENE::SCENE_B, {&TransitionScreen::prepare_destroy_Scene_B, PATH_SCENE_B}},
     };
 }
 
@@ -35,7 +35,7 @@ void TransitionScreen::showScene(const int &scene_ID)
         LOG << "Prepare to change scene";
         funcPtr func = mapSceneInfo.value(scene_ID).f;
         if(func)
-            func(true);
+            (this->*func)(true);
         LOG << "Change Scene in QML Layer";
         emit changeScene(mapSceneInfo.value(scene_ID).pathScene, scene_ID);
     }
@@ -53,7 +53,7 @@ void TransitionScreen::hideScene(const int &scene_ID)
     {
         funcPtr func = mapSceneInfo.value(scene_ID).f;
         if(func)
-            func(false);
+            (this->*func)(false);
     }
     else
     {
@@ -73,7 +73,7 @@ void TransitionScreen::backScene()
             LOG << "Prepare to change scene";
             funcPtr func = mapSceneInfo.value(m_scene_history.last()).f;
             if(func)
-                func(true);
+                (this->*func)(true);
             LOG << "Change Scene in QML Layer";
             emit changeScene(mapSceneInfo.value(m_scene_history.last()).pathScene, m_scene_history.last());
         }

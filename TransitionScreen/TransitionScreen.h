@@ -10,7 +10,8 @@
 #include "Screen_A_Model.h"
 #include "Screen_B_Model.h"
 
-typedef void (*funcPtr)(bool);
+class TransitionScreen;
+typedef void (TransitionScreen::*funcPtr)(bool);
 struct SCENE_DATA
 {
     funcPtr     f;
