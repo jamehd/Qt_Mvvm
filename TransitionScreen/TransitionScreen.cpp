@@ -113,7 +113,7 @@ void TransitionScreen::prepare_destroy_Scene_B(bool isPrepare)
     else
     {
         LOG << "DESTROY";
-        s_model_scr_B->deleteLater();
+        delete s_model_scr_B;
     }
 }
 

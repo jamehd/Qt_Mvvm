@@ -1,0 +1,11 @@
+<!DOCTYPE node PUBLIC "-//freedesktop//DTD D-BUS Object Introspection 1.0//EN"
+	"http://www.freedesktop.org/standards/dbus/1.0/introspect.dtd">
+<node name="/com/trollech/examples/dbusA">
+        <interface name="jamehd.example.mvvmstructure.interface">
+                <method name="backScene"/>
+                <signal name="sendData">
+                  <arg name="msgID" type="i" direction="out"/>
+                  <arg name="data" type="s" direction="out"/>
+                </method>
+	</interface>
+</node>

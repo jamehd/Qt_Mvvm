@@ -1,4 +1,4 @@
-QT += quick
+QT += quick dbus
 CONFIG += c++11
 
 # The following define makes your compiler emit warnings if you use
@@ -23,12 +23,16 @@ qnx: target.path = /tmp/$${TARGET}/bin
 else: unix:!android: target.path = /opt/$${TARGET}/bin
 !isEmpty(target.path): INSTALLS += target
 
+DBUS_INTERFACES += ExternalCommunication/communication.xml
+DBUS_ADAPTORS += ExternalCommunication/communication.xml
+
 INCLUDEPATH += \
     TransitionScreen \
     Model \
     ViewModel \
     Debug \
     Common \
+    ExternalCommunication \
 
 HEADERS += \
     TransitionScreen/TransitionScreen.h \
@@ -36,12 +40,17 @@ HEADERS += \
     ViewModel/Screen_A_Model.h \
     ViewModel/Screen_B_Model.h \
     Common/Enums.h \
-    Debug/Logger.h
+    Debug/Logger.h \
+    ExternalCommunication/Dbus_Communication.h
 
 SOURCES += main.cpp \
     TransitionScreen/TransitionScreen.cpp \
     Model/Model.cpp \
     ViewModel/Screen_A_Model.cpp \
-    ViewModel/Screen_B_Model.cpp
+    ViewModel/Screen_B_Model.cpp \
+    ExternalCommunication/Dbus_Communication.cpp
 
 RESOURCES += qml.qrc
+
+DISTFILES += \
+    ExternalCommunication/communication.xml
